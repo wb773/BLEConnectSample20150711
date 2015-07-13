@@ -30,15 +30,18 @@ public class BLDeviceControl {
 
     public BLDeviceControl(Context applicationContext){
         this.mContext = applicationContext;
+
+        checkBLEEnable();
+
     }
 
     //Bluetoothが使用出来るか確認する
-    private BluetoothAdapter checkBLEEnable(){
+    private boolean checkBLEEnable(){
         // Use this check to determine whether BLE is supported on the device.  Then you can
         // selectively disable BLE-related features.
         // デバイスがBLEをサポートしているかチェックする
         if (!mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
-           return null;
+           return false;
         }
 
         // Initializes a Bluetooth adapter.  For API level 18 and above, get a reference to
@@ -50,14 +53,8 @@ public class BLDeviceControl {
 
         // Checks if Bluetooth is supported on the device.
         if (mBluetoothAdapter == null) {
-            return null;
+            return false;
         }
-        return mBluetoothAdapter;
-    }
-
-    //当クラスの初期化
-    public boolean initBLE(final Context applicationContext){
-
         return true;
     }
 
