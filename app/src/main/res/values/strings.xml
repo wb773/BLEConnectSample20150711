@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- ****************************************
+           activity関連
+    ********************************************* -->
+    <!-- MainActivity -->
+    <string name="app_name">HartRateSimple</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="current_hr_device_id">Current HR Device ID : </string>
+    <string name="current_hr_device_address">Current HR Device Address: </string>
+    <string name="no_hr_device">No HR Device ... </string>
+
+    <!-- DeviceControlActivity -->
+    <string name="devicecontrolactivity_title">DeviceSetting</string>
+
+
+    <!-- ****************************************
+       その他のメッセージ
+    ********************************************* -->
+
+    <!-- Message -->
+    <string name="msg_current_device_clear">Current Device was clear.</string>
+
+
+
+    <!-- OptionMenu -->
+    <string name="optionmenu_open_devicecontrol">接続設定</string>
+    <string name="optionmenu_clear_device">デバイス情報の初期化</string>
+
+    <!-- unKnown -->
+    <string name="unknown_device">Unknown device</string>
+    <string name="unknown_characteristic">Unknown characteristic</string>
+    <string name="unknown_service">Unknown service</string>
+
+    <!-- no supported -->
+    <string name="ble_not_supported">BLE is not supported</string>
+    <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
+
+    <!-- for debug -->
+    <string name="debug_selected_item">選択したアイテム:%1$s\n index:%2$s\n Address:%3$s</string>
+    <string name="title_activity_bldevice_control">BLDeviceControlActivity</string>
+
+</resources>
