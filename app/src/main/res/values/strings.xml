@@ -3,6 +3,10 @@
     <!-- ****************************************
            activity関連
     ********************************************* -->
+    <!-- Activity共通 -->
+    <string name="search">search</string>
+
+
     <!-- MainActivity -->
     <string name="app_name">HartRateSimple</string>
 
