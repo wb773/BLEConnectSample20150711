@@ -41,7 +41,7 @@ public class BLDeviceControlService extends Service {
     public final static UUID UUID_HEART_RATE_MEASUREMENT =
             UUID.fromString(GattAttributes.HEART_RATE_MEASUREMENT);
 
-    //Binder
+    //Binderaa
     private final IBinder mBinder = new LocalBinder();
 
 
