@@ -13,12 +13,36 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int OPTION_MENU_OPEN_DEVICE_CONTROL= 0;
 
+    //--------------------------------------------------
+    // 標準のイベント
+    //onCreate
+    //onStart
+    //onResume
+    //onPause
+    //onStop
+    //onRestart
+    //onDestroy
+    //--------------------------------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //心拍計、サイコンの情報が保存されている場合、接続する
+
+
+    }
+
+    //--------------------------------------------------
+    // オプションメニュー
+    //--------------------------------------------------
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

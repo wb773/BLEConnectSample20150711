@@ -19,6 +19,7 @@ import com.example.wb773.bleconnectsample20150711.R;
 
 import java.util.ArrayList;
 
+//デバイス設定画面
 public class BLDeviceScanControlActivity extends AppCompatActivity implements BLDeviceScanCallbackInterface, View.OnClickListener {
 
     private LeDeviceListAdapter mLeDeviceListAdapter;
@@ -26,14 +27,21 @@ public class BLDeviceScanControlActivity extends AppCompatActivity implements BL
     private BLDeviceControl mControl;
     private Button hrSearchButton;
 
+    //--------------------------------------------------
+    // 標準のイベント
+    //--------------------------------------------------
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //画面の生成
         setContentView(R.layout.activity_bldevice_control);
 
         try {
+            //BLデバイスコントロールの生成
             mControl = new BLDeviceControl(getApplicationContext());
         } catch (BLDeviceException e) {
+            //BLE対応で無い場合はエラー
             Toast.makeText(
                     BLDeviceScanControlActivity.this,
                     e.getMessage(),
@@ -41,9 +49,14 @@ public class BLDeviceScanControlActivity extends AppCompatActivity implements BL
                     finish();
         }
 
+        //ボタンの取得
         hrSearchButton = (Button)findViewById(R.id.hr_search_button);
         hrSearchButton.setOnClickListener(this);
     }
+
+    //--------------------------------------------------
+    // オプションメニュー
+    //--------------------------------------------------
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -66,6 +79,11 @@ public class BLDeviceScanControlActivity extends AppCompatActivity implements BL
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    //--------------------------------------------------
+    //  BLDeviceScanCallbackInterfaceイベント
+    //--------------------------------------------------
 
     @Override
     public void onScanFinished(ArrayList<BluetoothDevice> devices) {
@@ -98,18 +116,27 @@ public class BLDeviceScanControlActivity extends AppCompatActivity implements BL
                                 BLDeviceScanControlActivity.this,
                                 getString(R.string.debug_selected_item, which, name, address),
                                 Toast.LENGTH_LONG).show();
-
                     }
                 });
 
         dialog.show();
     }
 
+
+
+    //--------------------------------------------------
+    // 操作
+    //--------------------------------------------------
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.hr_search_button:
+                //心拍計検索ボタン押下時
+
+                //メッセージを表示
                 Toast.makeText(BLDeviceScanControlActivity.this, "SearchDevice...", Toast.LENGTH_LONG).show();
+
+                //デバイスを検索する
                 mControl.SearchDevice(this);
                 break;
         }
