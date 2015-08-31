@@ -20,6 +20,11 @@
     <!-- DeviceControlActivity -->
     <string name="devicecontrolactivity_title">DeviceSetting</string>
 
+    <!-- ScanDialog -->
+    <string name="devicescandialog_title">デバイスの検索中</string>
+    <string name="devicescandialog_message">デバイスを検索しています</string>
+
+
 
     <!-- ****************************************
        その他のメッセージ

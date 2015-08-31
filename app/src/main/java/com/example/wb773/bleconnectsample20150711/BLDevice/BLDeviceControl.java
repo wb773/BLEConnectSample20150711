@@ -1,5 +1,6 @@
 package com.example.wb773.bleconnectsample20150711.BLDevice;
 
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -13,6 +14,8 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.util.Log;
+
+import com.example.wb773.bleconnectsample20150711.R;
 
 import java.util.ArrayList;
 
@@ -95,7 +98,17 @@ public class BLDeviceControl {
     //デバイスを検索する
     public List<DeviceHolder> SearchDevice(final BLDeviceScanCallbackInterface callback){
         mDevices = new ArrayList<BluetoothDevice>();
-        mHandler = new Handler();
+        mHandler = new Handler(); //SCAN_PERIOD後に処理を終了するための装置
+
+        //検索中ダイアログの表示
+
+        final ProgressDialog progressDialog = new ProgressDialog(mContext);
+        progressDialog.setTitle(mContext.getString(R.string.devicescandialog_title));
+        progressDialog.setMessage(mContext.getString(R.string.devicescandialog_message));
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+
+        //タイムアウト処理
         mHandler.postDelayed(
                 new Runnable() {
 
@@ -104,6 +117,7 @@ public class BLDeviceControl {
                         Log.i(TAG,mBluetoothAdapter.toString());
                         Log.i(TAG, mLeScanCallback.toString());
                         mBluetoothAdapter.stopLeScan(mLeScanCallback);
+                        progressDialog.dismiss();
                         callback.onScanFinished(mDevices);
                     }
                 },

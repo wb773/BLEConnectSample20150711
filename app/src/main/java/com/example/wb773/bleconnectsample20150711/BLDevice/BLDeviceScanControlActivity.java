@@ -39,7 +39,7 @@ public class BLDeviceScanControlActivity extends AppCompatActivity implements BL
 
         try {
             //BLデバイスコントロールの生成
-            mControl = new BLDeviceControl(getApplicationContext());
+            mControl = new BLDeviceControl(this);
         } catch (BLDeviceException e) {
             //BLE対応で無い場合はエラー
             Toast.makeText(
