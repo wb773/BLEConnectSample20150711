@@ -2,6 +2,7 @@ package com.example.wb773.bleconnectsample20150711.BLDevice;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +26,14 @@ public class BLDeviceScanControlActivity extends AppCompatActivity implements BL
     private LeDeviceListAdapter mLeDeviceListAdapter;
 
     private BLDeviceControl mControl;
+
+    //UIへの参照
     private Button hrSearchButton;
+    private TextView hrDeviceName;
+    private TextView hrDeviceAddress;
+
+    //Preference
+    SharedPreferences mPreference;
 
     //--------------------------------------------------
     // 標準のイベント
@@ -39,7 +47,7 @@ public class BLDeviceScanControlActivity extends AppCompatActivity implements BL
 
         try {
             //BLデバイスコントロールの生成
-            mControl = new BLDeviceControl(this);
+            mControl = new BLDeviceControl(BLDeviceScanControlActivity.this);
         } catch (BLDeviceException e) {
             //BLE対応で無い場合はエラー
             Toast.makeText(
@@ -51,7 +59,17 @@ public class BLDeviceScanControlActivity extends AppCompatActivity implements BL
 
         //ボタンの取得
         hrSearchButton = (Button)findViewById(R.id.hr_search_button);
-        hrSearchButton.setOnClickListener(this);
+        hrSearchButton.setOnClickListener(BLDeviceScanControlActivity.this);
+
+        //HRDevice関連
+        hrDeviceName = (TextView)findViewById(R.id.current_hr_device_id);
+        hrDeviceAddress = (TextView)findViewById(R.id.current_hr_device_address);
+
+        //プリファレンス
+        mPreference = getSharedPreferences("Devices", MODE_PRIVATE);
+
+        //デバイス情報の更新
+        refreshDevices();
     }
 
     //--------------------------------------------------
@@ -96,6 +114,7 @@ public class BLDeviceScanControlActivity extends AppCompatActivity implements BL
                     "noDeviceScaned...",
                     Toast.LENGTH_LONG).show();
         }else{
+
             for(BluetoothDevice device : devices){
                 mLeDeviceListAdapter.addDevice(device);
             }
@@ -110,6 +129,15 @@ public class BLDeviceScanControlActivity extends AppCompatActivity implements BL
                     public void onClick(DialogInterface dialog, int which) {
                         String name =  mLeDeviceListAdapter.getItem(which).getName();
                         String address = mLeDeviceListAdapter.getItem(which).getAddress();
+
+                        //シェアードプリファレンスに設定
+                        SharedPreferences.Editor editor = mPreference.edit();
+                        editor.putString("hrDeviceName",name);
+                        editor.putString("hrDeviceAddress",address);
+                        editor.commit();
+
+                        //デバイス情報の更新
+                        refreshDevices();
 
                         //選択したアイテムをトースト表示
                         Toast.makeText(
@@ -137,11 +165,15 @@ public class BLDeviceScanControlActivity extends AppCompatActivity implements BL
                 Toast.makeText(BLDeviceScanControlActivity.this, "SearchDevice...", Toast.LENGTH_LONG).show();
 
                 //デバイスを検索する
-                mControl.SearchDevice(this);
+                mControl.SearchDevice(BLDeviceScanControlActivity.this);
                 break;
         }
     }
 
+    public void refreshDevices(){
+        BLDeviceScanControlActivity.this.hrDeviceName.setText(mPreference.getString("hrDeviceName", ""));
+        BLDeviceScanControlActivity.this.hrDeviceAddress.setText(mPreference.getString("hrDeviceAddress",""));
+    }
 
     /** ------------------------------------------------------------------
      *  リストアダプタ

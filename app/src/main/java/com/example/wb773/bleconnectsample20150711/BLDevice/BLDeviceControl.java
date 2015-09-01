@@ -1,5 +1,6 @@
 package com.example.wb773.bleconnectsample20150711.BLDevice;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -33,7 +34,7 @@ public class BLDeviceControl {
     private static final long SCAN_PERIOD = 10000;
     private Handler mHandler;
 
-    private Context mContext;
+    private Activity mContext;
     private BluetoothAdapter mBluetoothAdapter;
 
     private BLDeviceControl(){}
@@ -47,7 +48,7 @@ public class BLDeviceControl {
     //Gatt
     private BluetoothGatt mBluetoothGatt;
 
-    public BLDeviceControl(Context applicationContext) throws BLDeviceException {
+    public BLDeviceControl(Activity applicationContext) throws BLDeviceException {
         this.mContext = applicationContext;
         if(!checkBLEEnable()){
             throw new BLDeviceException("Cannot use BLDevise");
@@ -101,7 +102,6 @@ public class BLDeviceControl {
         mHandler = new Handler(); //SCAN_PERIOD後に処理を終了するための装置
 
         //検索中ダイアログの表示
-
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
         progressDialog.setTitle(mContext.getString(R.string.devicescandialog_title));
         progressDialog.setMessage(mContext.getString(R.string.devicescandialog_message));
