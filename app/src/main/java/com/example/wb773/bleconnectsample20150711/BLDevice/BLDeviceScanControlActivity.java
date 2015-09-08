@@ -172,7 +172,7 @@ public class BLDeviceScanControlActivity extends AppCompatActivity implements BL
 
     public void refreshDevices(){
         BLDeviceScanControlActivity.this.hrDeviceName.setText(mPreference.getString("hrDeviceName", ""));
-        BLDeviceScanControlActivity.this.hrDeviceAddress.setText(mPreference.getString("hrDeviceAddress",""));
+        //BLDeviceScanControlActivity.this.hrDeviceAddress.setText(mPreference.getString("hrDeviceAddress",""));
     }
 
     /** ------------------------------------------------------------------
